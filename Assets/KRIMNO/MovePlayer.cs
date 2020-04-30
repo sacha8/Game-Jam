@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MovePlayer : MonoBehaviour
 {
-    // Quand on lance
+    // Quand on lance // Comfirmer
     void Start()
     {
         
     }
 
-    // Chaque secondes
+    // Chaque secondes // Comfirmer
     void Update()
     {
         
