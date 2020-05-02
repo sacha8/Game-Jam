@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnEnnemis : MonoBehaviour
 {
-    public GameObject Ennemis;
+    public Transform Ennemis;
 
     private float TimeAfterSpawn;
     public float StartTimeSpawn;

@@ -412,7 +412,6 @@ public class AstarPath : VersionedMonoBehaviour {
 	/// Debug string from the last completed path.
 	/// Will be updated if <see cref="logPathResults"/> == PathLog.InGame
 	/// </summary>
-	string inGameDebugPath;
 
 	/* @} */
 	#endregion
@@ -812,11 +811,6 @@ public class AstarPath : VersionedMonoBehaviour {
 	/// Draws the InGame debugging (if enabled), also shows the fps if 'L' is pressed down.
 	/// See: <see cref="logPathResults"/> PathLog
 	/// </summary>
-	private void OnGUI () {
-		if (logPathResults == PathLog.InGame && inGameDebugPath != "") {
-			GUI.Label(new Rect(5, 5, 400, 600), inGameDebugPath);
-		}
-	}
 #endif
 
 	/// <summary>
@@ -825,19 +819,7 @@ public class AstarPath : VersionedMonoBehaviour {
 	/// See: PathLog
 	/// See: Pathfinding.Path.DebugString
 	/// </summary>
-	private void LogPathResults (Path path) {
-		if (logPathResults != PathLog.None && (path.error || logPathResults != PathLog.OnlyErrors)) {
-			string debug = path.DebugString(logPathResults);
-
-			if (logPathResults == PathLog.InGame) {
-				inGameDebugPath = debug;
-			} else if (path.error) {
-				Debug.LogWarning(debug);
-			} else {
-				Debug.Log(debug);
-			}
-		}
-	}
+	
 
 	/// <summary>
 	/// Checks if any work items need to be executed
@@ -1279,7 +1261,6 @@ public class AstarPath : VersionedMonoBehaviour {
 		};
 
 		pathProcessor.OnPathPostSearch += path => {
-			LogPathResults(path);
 			var tmp = OnPathPostSearch;
 			if (tmp != null) tmp(path);
 		};
