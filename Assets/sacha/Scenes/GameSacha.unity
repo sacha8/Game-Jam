@@ -447,10 +447,10 @@ MonoBehaviour:
   WalkSpeed: 1000
   cam: {fileID: 62833844}
   PointAttaque: {fileID: 1948891853}
-  Attaqueradius: 0.5
+  Attaqueradius: 0
   EnnemiLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   AttaqueDommage: 10
 --- !u!50 &735367876
 Rigidbody2D:
