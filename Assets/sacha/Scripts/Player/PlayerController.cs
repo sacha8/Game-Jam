@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,24 +15,52 @@ public class PlayerController : MonoBehaviour
     public Transform PointAttaque;
     public float Attaqueradius;
     public LayerMask EnnemiLayer;
-
     public int AttaqueDommage = 10;
+    [Header("Life")]
+    public float life;
+    public float lifeMax;
+    public GameObject Handle;
+    private RectTransform lifeBarre;
+    private float timer;
+    private float WaitTime;
+    private bool IsTrigger = false;
+    public string restart;
+
+
 
     private void Start()
     {
+        lifeBarre = Handle.GetComponent<RectTransform>();
+        lifeBarre.localScale = new Vector3(life / lifeMax, 1, 1);
+
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
+        if(life <= 0)
+        {
+            SceneManager.LoadScene(restart);
+        }
+
+
+        timer += Time.deltaTime;
+        if(timer > WaitTime)
+        {
+            timer = 0.0f;
+            if (IsTrigger)
+            {
+                life -= 1;
+                lifeBarre.localScale = new Vector3(life / lifeMax, 1, 1);
+            }
+        }
+
+
         if (Input.GetMouseButtonDown(0))
         {
             Attaque();
         }
-
-
-
 
         float Horizontal = Input.GetAxisRaw("Horizontal") * WalkSpeed * Time.deltaTime;
         float Vertical = Input.GetAxisRaw("Vertical") * WalkSpeed * Time.deltaTime;
@@ -40,17 +68,13 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(Horizontal, Vertical);
 
         MousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-
-        Sprite();
     }
 
     void FixedUpdate()
     {
         float characterVelocityX = Mathf.Abs(rb.velocity.x);
-        float characterVelocityY = Mathf.Abs(rb.velocity.y);
 
         animator.SetFloat("WalkSpeed", characterVelocityX);
-        animator.SetFloat("WalkSpeed", characterVelocityY);
 
         Vector2 lookDir = MousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
@@ -60,10 +84,13 @@ public class PlayerController : MonoBehaviour
     void Attaque()
     {
         //Player attaque
+
         animator.SetTrigger("Attaque");
         //detecter l'ennemi
+
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(PointAttaque.position, Attaqueradius, EnnemiLayer);
         //Ajouter des dommages
+
         foreach(Collider2D enemy in hitEnemies)
         {
             enemy.GetComponent<Ennemi>().TakeDommage(AttaqueDommage);
@@ -78,15 +105,19 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(PointAttaque.position, Attaqueradius);
     }
 
-    void Sprite()
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        if(col.gameObject.tag == "ennemi")
         {
-            WalkSpeed = 1500;
+            IsTrigger = true;
         }
-        else if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
+    }
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if(col.gameObject.tag == "ennemi")
         {
-            WalkSpeed = 1000;
+            IsTrigger = false;
         }
     }
 }
