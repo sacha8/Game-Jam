@@ -7,26 +7,20 @@ public class Ennemi : MonoBehaviour
     public int LifeMax = 50;
     int currentHealth;
     public GameObject particulDed;
+    public Animator animator;
+    public AudioSource Hurt;
 
     void Start()
     {
         currentHealth = LifeMax;
     }
 
-    private void Update()
-    {
-        if (currentHealth <= 0)
-        {
-            
-            
-        }
-    }
-
     public void TakeDommage(int dommage)
     {
         currentHealth -= dommage;
-
-
+        animator.SetTrigger("EnnemiBlesser");
+        Hurt.Play();
+        
         if(currentHealth <= 0)
         {
             Instantiate(particulDed, transform.position, Quaternion.identity);
