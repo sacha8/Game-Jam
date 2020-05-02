@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,25 +15,52 @@ public class PlayerController : MonoBehaviour
     public Transform PointAttaque;
     public float Attaqueradius;
     public LayerMask EnnemiLayer;
-    //public AudioSource AS;
-
     public int AttaqueDommage = 10;
+    [Header("Life")]
+    public float life;
+    public float lifeMax;
+    public GameObject Handle;
+    private RectTransform lifeBarre;
+    private float timer;
+    private float WaitTime;
+    private bool IsTrigger = false;
+    public string restart;
+
+
 
     private void Start()
     {
+        lifeBarre = Handle.GetComponent<RectTransform>();
+        lifeBarre.localScale = new Vector3(life / lifeMax, 1, 1);
+
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
+        if(life <= 0)
+        {
+            SceneManager.LoadScene(restart);
+        }
+
+
+        timer += Time.deltaTime;
+        if(timer > WaitTime)
+        {
+            timer = 0.0f;
+            if (IsTrigger)
+            {
+                life -= 1;
+                lifeBarre.localScale = new Vector3(life / lifeMax, 1, 1);
+            }
+        }
+
+
         if (Input.GetMouseButtonDown(0))
         {
             Attaque();
         }
-
-
-
 
         float Horizontal = Input.GetAxisRaw("Horizontal") * WalkSpeed * Time.deltaTime;
         float Vertical = Input.GetAxisRaw("Vertical") * WalkSpeed * Time.deltaTime;
@@ -76,5 +103,21 @@ public class PlayerController : MonoBehaviour
             return;
 
         Gizmos.DrawWireSphere(PointAttaque.position, Attaqueradius);
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.gameObject.tag == "ennemi")
+        {
+            IsTrigger = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if(col.gameObject.tag == "ennemi")
+        {
+            IsTrigger = false;
+        }
     }
 }
