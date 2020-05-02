@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class GUI : MonoBehaviour
 {
-    public Image craftUi;
-    public GameObject[] j;
+    public Canvas craftUi;
+    
 
     
 
