@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public Camera cam;
     Vector2 MousePos;
     private Animator animator;
+    
 
 
     private void Start()
@@ -48,7 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            WalkSpeed = 2000;
+            WalkSpeed = 1500;
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
         {
