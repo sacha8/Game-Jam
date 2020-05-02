@@ -10,9 +10,12 @@ public class PlayerController : MonoBehaviour
     [Header("MoveCameraPlayer")]
     public Camera cam;
     Vector2 MousePos;
+    private Animator animator;
+
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -30,6 +33,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        float characterVelocityX = Mathf.Abs(rb.velocity.x);
+        float characterVelocityY = Mathf.Abs(rb.velocity.y);
+
+        animator.SetFloat("WalkSpeed", characterVelocityX);
+        animator.SetFloat("WalkSpeed", characterVelocityY);
+
         Vector2 lookDir = MousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = angle;

@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 1090559987}
   - component: {fileID: 1090559986}
   m_Layer: 0
-  m_Name: Obstacle
+  m_Name: Ennemi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
