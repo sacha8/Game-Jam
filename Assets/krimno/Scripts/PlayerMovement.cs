@@ -1,47 +1,31 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement")]
-public float WalkSpeed;
-private Rigidbody2D rb;
-[Header("MoveCameraPlayer")]
-public Camera cam;
-Vector2 MousePos;
+    public float moveSpeed = 5f;
 
-private void Start()
-{
-    rb = GetComponent<Rigidbody2D>();
-}
+    public Rigidbody2D rb;
+    public Camera cam;
 
-void Update()
-{
-    float Horizontal = Input.GetAxisRaw("Horizontal") * WalkSpeed * Time.deltaTime;
-    float Vertical = Input.GetAxisRaw("Vertical") * WalkSpeed * Time.deltaTime;
-
-    rb.velocity = new Vector2(Horizontal, Vertical);
-
-    MousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-
-    Sprite();
-}
-
-void FixedUpdate()
-{
-    Vector2 lookDir = MousePos - rb.position;
-    float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-    rb.rotation = angle;
-}
-
-void Sprite()
-{
-    if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+    Vector2 movement;
+    Vector2 mousePos;
+    
+    void Update()
     {
-        WalkSpeed = 2000;
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
     }
-    else if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
+
+    private void FixedUpdate()
     {
-        WalkSpeed = 1000;
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+
+        Vector2 lookDir = mousePos - rb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        rb.rotation = angle;
     }
-}
 }

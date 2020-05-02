@@ -15,7 +15,7 @@ public class PlayerLife : MonoBehaviour
     private float WaitTime = 5.0f;
     private bool IsTrigger = false;
     [Header("restarte(gameOver)")]
-    public string Restarte;
+    public string SceneKRIMNO;
 
     void Start()
     {
@@ -27,7 +27,7 @@ public class PlayerLife : MonoBehaviour
     {
         if(life <= 0)
         {
-            SceneManager.LoadScene(Restarte);
+            SceneManager.LoadScene(SceneKRIMNO);
         }
 
 
