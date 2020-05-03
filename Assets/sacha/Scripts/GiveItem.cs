@@ -21,15 +21,17 @@ public class GiveItem : MonoBehaviour
 
     public void Case1()
     {
-        if (inv.ferCount >= 5 && inv.buchesCount >= 5 && !iHaveHache == true)
+        if (inv.ferCount >= 2.5 && inv.buchesCount >= 2.5 && iHaveHache == false)
         {
+            iHaveHache = true;
+            hache.SetActive(true);
             inv.ferCount -= 5;
             inv.ferCountText.text = inv.ferCount.ToString();
             inv.buchesCount -= 5;
             inv.buchesCountText.text = inv.buchesCount.ToString();
 
-            hache.SetActive(true);
-            iHaveHache = true;
+            
+            
         }
         
     }

@@ -7,7 +7,7 @@ public class Gun : MonoBehaviour
     public Inventory inv;
     public GameObject pistolet;
     public GameObject hache;
-    
+    public GiveItem giveItem;
 
     public void Start()
     {
@@ -16,7 +16,12 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
-        if(inv.ferCount >= 15 && inv.buchesCount >= 15 && hache)
+        GivePistolet();
+    }
+
+    void GivePistolet()
+    {
+        if (inv.ferCount >= 15 && inv.buchesCount >= 15 && giveItem.iHaveHache == true)
         {
             inv.ferCount -= 15;
             inv.ferCountText.text = inv.ferCount.ToString();
