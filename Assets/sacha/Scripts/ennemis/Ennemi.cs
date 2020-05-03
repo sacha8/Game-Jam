@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Ennemi : MonoBehaviour
 {
+    [Header("DropItemRandom")]
+    public GameObject[] items;
+
+    [Header("LifeEnnemis")]
     public int LifeMax = 50;
     int currentHealth;
     public GameObject particulDed;
@@ -31,5 +35,7 @@ public class Ennemi : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
+        int rand = Random.Range(0, items.Length);
+        Instantiate(items[rand], transform.position, Quaternion.identity);
     }
 }
