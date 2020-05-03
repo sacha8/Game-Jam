@@ -7,9 +7,6 @@ public class GUI : MonoBehaviour
 {
     public Canvas craftUi;
     
-
-    
-
     private void Update()
     {
         CraftUi();
