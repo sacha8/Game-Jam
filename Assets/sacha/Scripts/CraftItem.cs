@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
-public class GiveItem : MonoBehaviour
+public class CraftItem : MonoBehaviour
 {
     [Header("ItemDonnateHache")]
     public Inventory inv;
@@ -14,7 +11,7 @@ public class GiveItem : MonoBehaviour
     public Ennemi AIdestroy;
     public GameObject Spawner;
 
-    private void Start()
+    void Start()
     {
         hache.SetActive(false);
     }
