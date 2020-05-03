@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public GameObject Handle;
     private RectTransform lifeBarre;
     private float timer;
-    private float WaitTime;
+    private float waiTtime;
     private bool IsTrigger = false;
     public string restart;
 
@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
 
         timer += Time.deltaTime;
-        if(timer > WaitTime)
+        if(timer > waiTtime)
         {
             timer = 0.0f;
             if (IsTrigger)
