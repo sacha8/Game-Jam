@@ -9,7 +9,7 @@ public class Ennemi : MonoBehaviour
 
     [Header("LifeEnnemis")]
     public int LifeMax = 50;
-    int currentHealth;
+    public int currentHealth;
     public GameObject particulDed;
     public Animator animator;
     public AudioSource Hurt;
@@ -32,7 +32,7 @@ public class Ennemi : MonoBehaviour
         }
     }
 
-    void Die()
+    public void Die()
     {
         Destroy(gameObject);
         int rand = Random.Range(0, items.Length);
