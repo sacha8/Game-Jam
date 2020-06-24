@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Ennemi : MonoBehaviour
 {
+    public GameObject Player;
+
     [Header("DropItemRandom")]
     public GameObject[] items;
 

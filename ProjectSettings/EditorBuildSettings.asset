@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/sacha/Scenes/Fin.unity
     guid: 5c962404162119247b781f9e1350edf2
+  - enabled: 1
+    path: Assets/sacha/Scenes/Levels02.unity
+    guid: 1cdd14ac5ca1d844091387b8bc3ee888
   m_configObjects: {}
